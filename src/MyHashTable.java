@@ -58,13 +58,37 @@ public class MyHashTable {
 	}
 
 	
-	public EmployeeInfo getFromTable(int studentNum) {
+	public EmployeeInfo getFromTable(int empNumber) {
 		// Return the reference value for that student, return null if student isn't in the table.
+
+		int bucketToGetFrom = calcBucket(empNumber);
+		for (int i = 0; i < buckets[bucketToGetFrom].size(); i++) {
+			if (empNumber == buckets[bucketToGetFrom].get(i).empNumber) {
+				EmployeeInfo getEmployeeNumber = buckets[bucketToGetFrom].get(i);
+				return getEmployeeNumber;
+			}
+		}
+		return null;
 	}
 
 
 	public void displayTable() {
 		// Walk through the buckets and display the items in each bucket's ArrayList.
+
+		EmployeeInfo currentEmployee;
+		
+		for (int i = 0; i < buckets.length; i++) {
+			System.out.println("The Contents for Bucket # " + i + " are:");
+			if (buckets[i].size() == 0 ) {
+				System.out.println("There are no items in this bucket.");
+			}
+			else {
+				for (int j = 0; j < buckets[i].size(); j++) {
+					currentEmployee = buckets[i].get(j);
+					System.out.println(currentEmployee.empNumber + " " + currentEmployee.firstName + " " + currentEmployee.lastName);
+				}
+			}
+		}
 	}
 
 }
